@@ -1,0 +1,122 @@
+java.io包
+1.编码问题
+   a.一个字符串放入文本文件-->可以认为字符串的序列化
+      从文本文件中读取字符串--->可以认为是字符串的反序列化
+      文本文件中的内容都是以字节的方式呈现的。
+      其实在字符串放入文本本件的时候，需要把字符串转换成
+      字节，转换成字节的时候可以选择很多种编码。
+      以什么样的编码方式转换成字节的，将来再转换成
+      字符串也需要用该编码方式
+   b.常用的编码
+      gbk、utf-8、utf-16be
+      
+2.java.io.File类  表示文件或者目录
+    2.1文件常用的方法  FileDemo1.java
+    2.2文件的过滤操作  FileDemo2.java
+         list()、listFiles()   list(FilenameFilter)  
+         listFile(FileFilter or FilenameFilter)     
+         注意递归的问题
+    2.3文件的递归删除  目录必须为空该目录才能被删除
+         所以删除一个目录先要删除目录中的内容
+
+文件的读写操作
+字节流 ---->读写以字节为单位   
+字符流 ---->读写以字符为单位   只适合文本类的文件，不适合二进制文件
+    输入流---->读操作的
+    输出流---->写操作的
+    
+ 3.以字节为单位的输入输出流
+    输入流:InputStream(读)
+                      ----> FileInputStream 把文件作为字节流进行读操作
+                      ----> BufferedInputStream(缓冲区的，先读入缓冲区)
+                      ----> PipedInputStream     
+                      ----> DataInputStream   分析读写的原理
+                      ---->System.in 从键盘的读
+    输出流:OutputStream(写)
+                     ----->FileOutputStream 把文件作为字节流进行写操作
+                     ----->BufferedOutputStream
+                     ----->PipedOutputStream
+                     ----->DataOutputStream 分析的读写的原理
+                     ----->System.out  --->PrintStream
+                     
+      PipedOutputStream(PipedInputStream())
+      PipedInputStream(PipedOutputStream())
+      out写出的数据正好被in读到
+   
+4.字符流（文本的操作)--->都是由字节流构造而来（适配器模式)
+   输入流----->Reader
+                      ----->InputStreamReader
+                      ----->FileReader
+                      ----->BufferedReader    能够读字符了，希望能有一次读一行，
+                                                            就是一个字符串 readLine
+   输出流----->Writer
+                      ----->OutputStreamWriter
+                      ----->FileWriter
+                      ----->BufferedWriter   writer(String,int,int)   newLine()方法
+                      ----->PrintWriter
+                      
+                      
+5.RandomAccessFile   随机访问文件流
+    
+6.java.util.Properties(并不是IO种的类)
+   实际使用需要和IO集合在一起
+   资源文件  以properties作为文件的扩展名
+   文件的内容是以key=value的方式进行存放的
+
+   资源文件将来在设计可以用来解耦+反射结合使用
+   properties文件中中文的问题：较新版本的eclipse都直接能转换
+   如果不能转换可以通过native2ascii -encoding gbk  原文件   新文件
+
+7.序列化--->对象的序列化（对象进行存储or在网络中进行传递，
+                                      该对象必须进行序列化)
+ 7.1 java.io.ObjectOutputStream
+  java.io.ObjectInputStream
+  java.io.Serializable  //该接口只是个规范没有任何方法
+ 7.2 transient关键字
+      如果一个对象的属性用transient关键字来修饰，那么
+      该属性不会做jvm默认的序列化工作  
+      可以通过如下的方式来进行自己的序列化和反序列化工作
+      private void readObject(java.io.ObjectInputStream stream)
+      throws IOException, ClassNotFoundException;
+      private void writeObject(java.io.ObjectOutputStream stream)
+      throws IOException
+      
+ 7.3集合中的类是如何序列化的比如ArrayList
+      ArrayList中有数组，且数组不一定放满元素
+      所以没有必要把整个数组序列化。只需要序列化有效元素
+      用了以上两个方法签名来进行序列化和反序列化的工作。
+      这样的话性能比较高。
+      
+ 7.4 java实现接口 、继承都有传递性所以
+      如果父类实现了Serializable接口，那么其子类都可以序列化
+      需要注意的是：
+         如果父类是可序列化的，那么在反序列化子类的时候不会调用父类的构造函数
+         如果父类是不可序列化的，而子类是可以序列化的
+         那么在子类进行反序列化时，会调用父类的构造函数
+         SeriDemo2案例进行了测试
+7.5 java中有克隆的功能Object类中已经提供了该功能
+     一个类的对象要进行克隆可以直接实现Cloneable
+     浅克隆 or 浅拷贝
+     深克隆 or 深拷贝    通过序列化和反序列化的方式
+     这其实是一个设计模式---->原型模式
+      
+7.6 和集合一起操作
+如下文本文件
+1,zhangsan,28
+2,lisi,29
+3,wangwu,20
+4,zhaoliu,33
+5,zhangsan,28
+6,zhangsan,28
+7,lisi,29
+8,zhangsan,28
+9,tianqi,30
+要求统计姓名出现的次数，并按照次数降序输出
+如果次数相同，按照姓名字母顺序升序
+思路:先一次读一行(io),然后进行字符串分割
+       把名字放入Map集合当中统计次数，再用TreeSet排序
+ 
+    
+    
+    
+    

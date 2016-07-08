@@ -1,0 +1,76 @@
+java常用类介绍
+1.java.lang.String（学会使用帮助文档)
+   1.1final修饰，不能被其它类继承
+   1.2 String的构造
+         直接赋值   String s = "hello"; 字符串常量的问题
+   1.3 字符串连接的问题 +
+   1.4常用方法
+      charAt()、length()、indexOf,lastIndexOf、substring等
+2.StringBuffer,StringBuilder
+   字符串拼接时用这两个类，效率高，节约内存，如果用字符串+
+   性能差，并且浪费很多空间，产生很多垃圾
+   
+   StringBuffer线程安全、StringBuilder线程不安全 在多线程场景下
+   性能比StringBuffer要高
+   
+   案例String getString(int length)
+         产生如下字符串:
+         (?,?,?)  ？的个数是length个
+   
+3.正则表达式
+   3.1正则表达式(Pattern)
+   用一些特殊的有意义的字符(记)组成的字符串
+   验证输入的邮箱是否合法
+   Java  JavaScript PHP等语言中都有正则表达式
+   稍有区别.  
+   
+   java.util.Patten    static compile(正则表达式r)
+                    split(字符串)  对当前字符串用r分隔
+   java.util.Matcher   p.matcher(字符串)  
+               find()看是否有匹配 如果有返回true 会继续往下找
+               group()
+   String  matches、split
+    3.2原子：  正则表达式的最基本的组成单位
+     只要一个正则表达式可以单独使用的字符
+     就是原子
+     a.所有可以显示的字符 或非打印的字符
+     b. .、?、*、+等都是有特殊意义的字符
+         想作为原子使用必须转义
+	 \\.、\\? 、\\*  \\+
+     c.在正则表达式可以直接使用一些范围的原子
+     \\d  表示任意的一个十进制数字[0-9]
+     \\D  表示任意的一个除数字之外的字符[^0-9]
+     \\s  表示任意的一个空白字符空格[\n\r\t\f ]
+     \\S  表示一个非空白
+     \\w  表示任意的一个字a-zA-Z0-9_ [a-zA-Z0-9_]
+     \\W  表示非a-zA-Z0-9_ [^a-zA-Z0-9_]
+     d.自己定义个原子
+     [0-9]
+     [5-8]
+     [a-z5-8]
+     [^0-9]  ^代表取反 不能是0-9必须放在[]里面的第一个字符
+     [^a-zA-Z0-9_]
+     
+    3.3元字符
+      用来修饰原子用的，不能单独出现
+    *  :表示原子可以出现0次1次或者多次{0,}
+    +  ：表示原子可以出现1次或者多次{1,}
+    ?  : 表示原子可以出现0次或者1次{0,1}
+    {} 用于自定义原子出现的次数
+    {m}  出现m次
+    {m,n} m到n次，包含m和n
+    {m,}  最少出现m次，做多无限
+    .  : 表示除换行符之外的任意的一个字符
+    ^  : 必须以什么什么开头
+    $  : 必须以什么什么结尾
+    |  : 表示或的关系
+   
+ 4.java.lang.Math
+ 5.java.util.Date
+       格式化日期
+       字符串到日期的转换
+ 6.java.util.Calendar
+ 7.java.lang.System
+   
+   
+         

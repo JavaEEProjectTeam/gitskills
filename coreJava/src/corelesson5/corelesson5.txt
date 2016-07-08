@@ -1,0 +1,108 @@
+java线程
+  进程：进程就是计算机的运行线索
+  线程 : 进程的运行线索，计算机运行的最小单位
+1. java中如何创建一个线程
+   1.1 以实现了Runnable接口的类的实例做为创建
+         Thread类对象的构造函数的参数
+         
+         主函数本身就是一个线程
+   1.2 直接创建类继承Thread重写run方法
+        两种方法是都可以：建议使用第一种，更加面向对象
+        一个Runnable的实例我们认为就是一个任务
+   1.3 直接用匿名类对象的方式
+   
+2.java中线程的生命周期
+   newBorn 新生状态
+   Pause      阻塞状态
+   Runnable   可执行状态(Running、Ready)
+   Dead (不是stop--->死不能复生)        
+   
+   多线程的程序经常会每次运行结果可能不一样（why?)
+   Runnable(Running/Ready)跟这个状态有关系  切换有关系
+   
+3.java线程中常用的一些方法
+   3.1常用的方法  setName   getName   
+      Thread.currentThread，优先级设置的方法等
+   3.2重要的一些方法
+       Thread.sleep()让线程睡，线程就进入阻塞状态
+       interrupt
+       join()方法  一个线程等待另外一个线程运行结束
+       Thread.yield() 主动放弃CPU把机会让给别的线程
+                              然后参与竞争  Running--->ready
+   
+4.线程的互斥操作--->多个线程之间共享数据的问题
+   4.1同步块
+       synchronized  
+       锁 （java中任何对象都是一把锁，有且只有一把钥匙)
+      
+   4.2同步函数
+       也是有锁存在的 --->普通方法加同步 锁就是当前对象
+       静态函数同步也是有锁的---->锁是当前类的类类型
+       
+   注意：多个线程共享数据要保证安全，
+            一定要保证用的是同一个对象锁
+   注意：死锁的问题  死锁程序就卡死，无法调试--->可以通过好的工具
+            来检查死锁
+            要慎用 synchronized  
+   注意：之前我们讲StringBuilder/StringBuffer
+                          还有集合类:ArrayList/Vector
+   4.3 Lock 
+      synchronized 很繁琐  比较不好理解而且不面向对象
+      java5版本开始做了很好的改进有了Lock对象
+      
+      扩展内容：缓存操作，读写锁操作  CacheDemo or 查看帮助文档
+      
+ 5.线程的通讯
+   5.1  通过管道流进行简单的通讯(性能操作比较差，
+         只能交互简单数据)
+   5.2 Thread.yield()方式
+        生产者 和消费者的模型
+        效率也比较差。yield是主动放弃了cpu，但是又去参与竞争
+          
+   5.3 wait/notify
+        任何一个对象都拥有一个线程等待池，
+        挂在同一个对象的线程等待池中的线程之间可以互相唤醒
+        wait/notify方法是属于Object类的
+        
+        wait方法的使用必须放入 synchronized同步块中
+        先学会搭模型
+        
+        面试题：
+           先A线程运行10次，然后B线程运行20次
+           如此反复50次
+           理解：A线程生产者 生产食物需要循环10次
+                     B线程消费者 消费食物需要循环20次
+            改进:A10次  B 20次    C30次  如此50次
+            
+    5.4 java5中引入了新的线程通讯方式（了解)
+         用的是锁机制
+         
+         java5开始引入的线程机制java.util.concurrent 
+                                              java.util.concurrent.locks 
+                                              
+6.线程范围内数据共享
+     6.1 HashMap<Thread,Object>  
+     6.2 java中提供了ThreadLocal这个类，已经完成了类似的功能
+          我们可以直接使用
+     6.3写一个类，使得该类在创建对象时，创建完之后，
+         直接就是同一个线程，同一个对象，不同线程，对象不同
+         
+         不管是单例模式还是这种情况，我们都使得构造函数private
+         ，这种情况对反射来说是无效的。
+               
+ 7.java线程池   ----->java5引入的。了解即可
+    线程并不是越多越好，如果无限制的创建线程
+    那么线程的创建、销毁等有很大的消耗
+    希望不管执行多少任务，都用固定的线程数来执行
+    7.1如何创建线程池
+        Executors类
+            newFixedThreadPool
+            newSingleThreadExecutor()
+            newCachedThreadPool()
+       ExecutorService    
+       ScheduledExecutorService
+       
+ 8. Callable &Future
+     java5开始才有  ---->  了解
+ 
+        

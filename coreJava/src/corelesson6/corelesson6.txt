@@ -1,0 +1,40 @@
+java网络编程  java.net
+1.java.net.InetAddress类
+2.java.net.ServerSocket
+   java.net.Socket
+   服务器端
+        端口(port)：计算上服务都会运行在一个端口上
+                  端口用整数表示，计算机最多有65536个端口
+                  1024一下的基本被占用我们使用1024以上的
+        在计算机上开启一个服务，需要占用一个端口
+        如何开启一个服务，在java中使用ServerSocket类即可
+        ServerSocket s = new ServerSocket(port);
+        Socket socket = s.accept();
+                  
+    客户端
+          Socket socket = new Socket(ip,port);
+     socket.getInputStream()
+     socket.getOutputStream() 
+          
+ 3.聊天室（群聊、私聊的功能)
+    客户端：a.随时要接收从服务端发送过来的数据，
+                 读操作
+                 b.随时从键盘读数据发送给服务器
+             客户端连接上服务器之后，需要开启两个线程
+             来执行a,b
+             
+             聊天时私聊的时候ip/内容
+             群聊时的时候 直接内容
+             
+   服务端：
+          a.服务器端随时需要读取客户端发来的数据 然后再往外写。
+            写成一个线程
+          b.服务器要能够保存产生的所有的Socket对象，能够遍历能够查找
+          
+ 4.在网络传输对象
+             
+             
+             
+             
+      
+   

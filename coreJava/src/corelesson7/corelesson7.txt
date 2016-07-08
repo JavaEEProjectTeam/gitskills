@@ -1,0 +1,48 @@
+GUI
+   java.awt.*;//创建用户界面和绘制图形图像的所有类。 
+   java.awt.event.*;//事件
+   javax.swing.*;//创建用户界面的组件（不建议使用awt包下的组件,
+                       swing包下的组件基本都继承了awt包下的组件)
+   java.awt.geom.*;
+   
+   1.常用的简单组件和布局
+     javax.swing.JFrame
+     javax.swing.JButton
+    布局：FlowLayout水平布局
+                     从上边的中间开始放
+              BorderLayout边界布局
+                     东南西北中
+              GridLayout 网格布局
+                   x*y网格
+     javax.swing.JPanel--->面板
+        a.面板比窗体丰富的操作 （比如画图等）
+        b.面板是没有边界的窗体（没有最大最小化等)
+        c.习惯是在窗体上布局面板，面板布局组件
+        
+  2.java事件机制
+    java中已经给所有的事件都分类了（和异常的原理很像）一个
+    事件就产生了事件类的对象
+    给某个组件加事件操作就是要给一个组件加监听器
+    如何加监听器
+        事件类型             监听器类型                   加监听器的方式
+        ActionEvent       ActionListener         addActionListener(ActionListener)
+        XXXEvent           XXXListener             addXXXListener(XXXListener)
+        监听器都是接口，实现接口的方法，就是事件要做的事情
+        
+        2.1按钮的事件  ActionEvent
+        2.2鼠标事件  MouseEvent  
+                           MouseListener   addMouseListener  五个事件
+                           MouseMotionListener addMouseMotionListener
+        2.3键盘事件
+                        KeyEvent   KeyListener   addKeyListener
+             给组件加键盘事件指的是当该组件获得焦点时操作键盘产生事件
+3.面板中的画图操作
+   3.1paintComponent重写该方法可以进行画图的操作 ,
+        该方法显示时会自动调用一次
+    3.2如果要调用paintComponent只需要调用repaint即可
+    3.3和事件结合使用
+        鼠标事件案例
+        键盘事件的案例
+        
+        
+        

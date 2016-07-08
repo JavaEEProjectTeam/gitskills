@@ -1,0 +1,77 @@
+jdk新特性
+1.静态导入
+   导入类的静态成员，访问时就不需要类名.操作  用的比较少
+2.自动装箱、拆箱
+   针对的是基本数据类型和封装类
+   基本类型可以直接转换成封装类的实例---->装箱
+   封装类可以直接转换成基本的数据类型---->拆箱
+3.可变参数
+   注意1:
+       int add(int[] a)
+       int add(int...a)  jvm认为这两个是同一个方法
+   注意2：一个函数的参数只能有一个可变参数
+              并且放在最后一个。
+   注意3:可变参数的函数可以跟其它函数构成重载
+   
+ 4.增强for循环（我们已经一直在用了)
+     数组
+     集合
+5. 枚举类型
+   如果一个类的对象是固定的、并且可列出的、并且是大家都知道的
+   比如：季节类--->4个对象 初夏秋冬
+             星期类--->只有7个对象   周一到周日
+    自己写一个星期类应该如何设计  WeekDay.java--->模拟枚举
+    
+   enum关键字   地位等级与类
+   
+6.注解（原数据--->修饰数据的数据)
+
+
+7.泛型
+   泛型是提供给javac编译器使用的,可以限定集合中的输入类型。
+   让编译器挡住源程序中的非法输入。
+   编译器编译带类型说明的集合时会去掉“类型"信息，
+   使程序运行效率不受影响。对于参数化的泛型类 型,
+   getClass()方法的返回值和原始类型完全一样。
+   由于编译生成的字节码会去掉泛型的类型信息，只要能跳过编译器。
+   就可以往某个泛型集合中加入其它类型的数据。
+   例如：用反射得到集合，再调用其     add方法即可。
+ .ArrayList<E>类定义 和 ArrayList<Integer>类引用中涉及术语如下:
+  ArrayList<E> 泛型类型
+  ArrayList<E> 中的E成为类型变量或者类型参数
+  ArrayList<Integer>成为参数化的类型
+  ArrayList<Integer>中的Integer称为类型参数的实例，或者实际类型参数
+  ArrayList<Integer>中的<>念typeOf
+ .参数化类型与原始类型的兼容性:
+   参数化类型可以引用一个原始类型
+  Collection<String> c = new Vector();//会有警告
+  原始类型可以引用一个参数化类型的对象
+  Collection c = new Vector<String>();//会有警告
+ .参数化类型不考虑类型参数的继承关系
+  Vector<String> v = new Vector<Object>();//错
+  Vector<Object> v = new Vctor<String>();//也错
+ .在创建数组实例时，数组的元素不能使用参数化的类型
+  Vector<String>[] v = new Vector<String>[10];//错
+
+  Vector v1 = new Vector<String>();
+  Vector<Object> v = v1;
+
+ .泛型中的?通配符
+  问题:定义一个方法，
+  该方法用于打印出任意参数化类型的集合(Collection)中的所有数据，
+  该方法如何定义
+
+  使用?通配符可以引用其他各种参数化的类型，
+  ？通配符定义的变量主要用作引用，
+  可以调用与参数化  无关的方法，不能调用与参数化有关的方法。
+
+ .泛型中的?通配符的扩展
+    限定通配符的上边界
+     正确   Vector<? extends Number> x = new Vector<Integer>();
+     错误   Vector<? extends Number> x = new Vector<String>();
+   限定通配符的下边界
+     正确 Vector <? super Integer> x = new Vector<Number>();
+     错误 Vector<? super Integer> x = new Vector<Byte>();
+   限定通配符总是包括自己
+
+8.java线程框架  --->java分布式课程中

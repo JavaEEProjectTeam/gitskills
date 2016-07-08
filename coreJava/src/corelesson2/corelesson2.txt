@@ -1,0 +1,65 @@
+java反射
+1.java.lang.Class   （Class Type )
+  1.1面向对象的原理中一般认为万事万物皆对象
+  那么类也是对象，这个对象是哪个类的呢？这个对象该如何表示呢？
+  class A{}
+  A类的对象如何表示   A a1 = new A(); a1即是。
+  A类本事也是对象，是java.lang.Class类的对象，
+  这个对象称为类的类类型(class type),如何表示呢？
+  有三种表示方式 
+       a.类名.class
+       b.如果有对象存在可以直接对象.getClass()
+       c.Class.forName("类的全称");//代表了动态加载类
+       
+  1.2理解动态加载类的用法（Office案例)
+       将来功能性的类往往都是动态加载而非静态加载
+  1.3Class类的常用方法     
+      我们可以通过Class类 就可以获取类的所有信息
+      包括方法，成员变量，构造函数等等 
+       
+ 2.方法的反射（java.lang.reflect.Method类的使用)
+       如何获取某一个方法
+      方法的反射操作 method.invoke(object,参数)
+      很多时候我们需要根据方法名称调用方法
+      案例:根据标准javaBean的属性名获取其属性值
+      
+3.成员变量的反射
+   如何获取某个成员变量
+   成员变量的反射操作 set/get
+   案例：写一个方法
+            public static void changeValue(Object obj)
+            把obj字符串属性的值都变成大写，int属性的值全部加100
+   案例: 写一个方法
+           public static String getSql(Object object)
+           该方法的是"insert into 类名（属性1，属性2..)values(?,?...)
+ 4.构造函数的反射
+    如何获取某一个构造函数
+    如果通过构造函数的反射创建对象
+    
+ 5.数组的反射
+    java中数组都是对象
+    数组的类类型的表示  对象.getClass 、类型维数.class
+    java.lang.reflect.Array
+      
+      
+      
+      
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
